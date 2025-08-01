@@ -7,7 +7,7 @@ const App = () => {
     <>
     <Landing />
     <AnimatedEmailSVG />
-    <p>hii</p>
+  
     </>
   )
 }
