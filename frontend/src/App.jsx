@@ -1,8 +1,14 @@
 import React from 'react'
+import Landing from '../pages/Landing'
+import AnimatedEmailSVG from '../Animation/AnimatedEmailSVG'
 
 const App = () => {
   return (
-    <div className='bg-red-300'>App</div>
+    <>
+    <Landing />
+    <AnimatedEmailSVG />
+    <p>hii</p>
+    </>
   )
 }
 
