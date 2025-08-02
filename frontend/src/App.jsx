@@ -5,7 +5,6 @@ import Landing from '../pages/Landing';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 
-// Moved ProtectedRoute outside of App component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? children : <Login />;

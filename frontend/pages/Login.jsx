@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { loginUser, registerUser } from '../api/authapi'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../src/context/AuthContext'
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const navigate = useNavigate()
   const [login, setLogin] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
+  const {login:authLogin} = useAuth()
 
   const onSubmit = async (formData) => {
     setIsLoading(true)
@@ -17,6 +19,7 @@ const Login = () => {
       console.log(login ? 'Login success' : 'Register success', res)
       if (res.token) {
         localStorage.setItem('token', res.token)
+      authLogin(res.token)
        navigate('/dashboard')
       }
     } catch (err) {

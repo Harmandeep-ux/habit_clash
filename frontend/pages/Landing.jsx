@@ -22,7 +22,7 @@ const navigate = useNavigate()
     if(isAuthenticated){
       navigate('/dashboard')
     }else{
-      '/login'
+      navigate('/login')
     }
   }
   // Pre-calculated streak positions for better performance
