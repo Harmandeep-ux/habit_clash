@@ -1,13 +1,12 @@
 import React from 'react'
 import Landing from '../pages/Landing'
-import AnimatedEmailSVG from '../Animation/AnimatedEmailSVG'
+import FireAnimatedCard from '../Animation/FireAnimatedCard '
 
 const App = () => {
   return (
     <>
     <Landing />
-    <AnimatedEmailSVG />
-  
+    <FireAnimatedCard />  
     </>
   )
 }
