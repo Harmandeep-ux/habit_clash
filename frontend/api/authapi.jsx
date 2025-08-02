@@ -1,4 +1,4 @@
-import { axiosInstance } from "./api"
+import axiosInstance  from "./api"
 
 export const loginUser = async(Credential) =>{
    const {data} = await axiosInstance.post('/auth/login',Credential)
@@ -11,6 +11,6 @@ export const registerUser = async(Credential)=>{
 }
 
 export const logoutUser = async () =>{
-    const {data} = await axiosInstance.post('/auth/logout',Credential)
+    const {data} = await axiosInstance.post('/auth/logout')
     return data
 }
