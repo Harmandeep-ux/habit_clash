@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../src/context/AuthContext";
+import {useNavigate} from 'react-router-dom'
+
 
 const Landing = () => {
   const [activeText, setActiveText] = useState(0);
   const [showCTA, setShowCTA] = useState(false);
+ const { isAuthenticated } = useAuth();
+const navigate = useNavigate()
 
   const phrases = [
     "CHALLENGE FRIENDS.",
@@ -12,6 +17,14 @@ const Landing = () => {
     "HABIT CLASH."
   ];
 
+
+  const handleStartClick = ()=>{
+    if(isAuthenticated){
+      navigate('/dashboard')
+    }else{
+      '/login'
+    }
+  }
   // Pre-calculated streak positions for better performance
   const streaks = useMemo(() => 
     Array.from({ length: 10 }).map(() => ({
@@ -85,12 +98,12 @@ const Landing = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <motion.button
+              <motion.button onClick={handleStartClick}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-gradient-to-r from-orange-500 to-yellow-400 text-black font-bold py-4 px-8 rounded-full text-xl shadow-lg shadow-orange-500/30"
               >
-                START CLASHING NOW
+                 START CLASHING NOW
               </motion.button>
             </motion.div>
           )}

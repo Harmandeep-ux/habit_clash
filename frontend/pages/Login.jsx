@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { loginUser, registerUser } from '../api/authapi'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const navigate = useNavigate()
   const [login, setLogin] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -15,7 +17,7 @@ const Login = () => {
       console.log(login ? 'Login success' : 'Register success', res)
       if (res.token) {
         localStorage.setItem('token', res.token)
-        // In a real app, you'd redirect to dashboard here
+       navigate('/dashboard')
       }
     } catch (err) {
       console.log(`Error:`, err.response?.data || err.message)
