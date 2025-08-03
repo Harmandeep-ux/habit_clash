@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../src/context/AuthContext'
+import Navbar from '../components/Navbar'
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -12,9 +13,11 @@ const Dashboard = () => {
   }
 
   return (
-    <div>Dashboard
+    <>
+    <Navbar/>
+    Dashboard
       <button onClick={handleLogout}>logout</button>
-    </div>
+    </>
   )
 }
 
