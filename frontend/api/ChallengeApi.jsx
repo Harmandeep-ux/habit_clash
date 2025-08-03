@@ -1,4 +1,4 @@
-import { axiosInstance } from "./api"
+import  axiosInstance  from "./api"
 
 export const createChallenge = async(challengedata)=>{
     const {data} = await axiosInstance.post('/challenge/create',challengedata)

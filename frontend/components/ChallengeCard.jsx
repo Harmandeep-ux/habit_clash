@@ -1,9 +1,9 @@
 import React from 'react'
 
-const challengeCard = () => {
+const ChallengeCard = () => {
   return (
-    <div>challengeCard</div>
+    <div>ChallengeCard</div>
   )
 }
 
-export default challengeCard
+export default ChallengeCard

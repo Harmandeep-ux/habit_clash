@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   return (
@@ -27,13 +28,15 @@ const Dashboard = () => {
           whileHover={{ y: -5 }}
         >
           <div className="text-3xl text-orange-400 mb-4">✨</div>
-          <h3 className="text-2xl font-semibold mb-3 text-yellow-400">Create Challenge</h3>
+         <button className="text-2xl font-semibold mb-3 text-yellow-400">Create Challenge</button>
           <p className="text-orange-200 mb-5">
             Design your own habit-building challenge with custom rules and goals
           </p>
+         <Link to={'/createchallenge'}>
           <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
             Start Creating
           </button>
+         </Link > 
         </motion.div>
 
         {/* Join Challenge */}

@@ -20,7 +20,7 @@ const navigate = useNavigate()
 
   const handleStartClick = ()=>{
     if(isAuthenticated){
-      navigate('/dashboard')
+      navigate('/home')
     }else{
       navigate('/login')
     }
