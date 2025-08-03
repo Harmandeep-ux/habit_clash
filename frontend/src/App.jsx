@@ -4,6 +4,8 @@ import { AuthProvider, useAuth } from './context/AuthContext'; // Added useAuth 
 import Landing from '../pages/Landing';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
+import Layout from './layout/Layout';
+import HomePage from '../pages/HomePage';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -18,13 +20,14 @@ const App = () => {
           <Route path='/' element={<Landing />} />
           <Route path='/login' element={<Login />} />
           <Route 
-            path='/dashboard' 
+            path='/home' 
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <HomePage />
               </ProtectedRoute>
             } 
           />
+          <Route path='/dashboard' element={<Layout />}/>
         </Routes>
       </Router>
     </AuthProvider>

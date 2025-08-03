@@ -21,7 +21,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo/Brand */}
-        <Link to="/" className="flex items-center space-x-2">
+        <Link to="/home" className="flex items-center space-x-2">
           <motion.span 
             className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500"
             whileHover={{ scale: 1.05 }}
@@ -33,7 +33,7 @@ const Navbar = () => {
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-8">
           <Link 
-            to="/" 
+            to="/home" 
             className="text-orange-200 hover:text-yellow-400 transition-colors"
           >
             Home
