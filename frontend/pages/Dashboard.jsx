@@ -64,9 +64,11 @@ const Dashboard = () => {
           <p className="text-orange-200 mb-5">
             Track your progress in current challenges and maintain your streaks
           </p>
-          <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
+         <Link to='/mine'> 
+         <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
             View Progress
           </button>
+         </Link> 
         </motion.div>
 
         {/* Leaderboard */}
@@ -94,9 +96,11 @@ const Dashboard = () => {
           <p className="text-orange-200 mb-5">
             Bring friends into your challenges for accountability and fun
           </p>
-          <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
+         <Link to='/invite'> 
+         <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
             Send Invites
           </button>
+         </Link> 
         </motion.div>
 
         {/* My Streak */}

@@ -7,6 +7,8 @@ import Dashboard from '../pages/Dashboard';
 import Layout from './layout/Layout';
 import HomePage from '../pages/HomePage';
 import CreateChallenge from '../pages/CreateChallenge';
+import InviteModal from '../components/InviteModal';
+import ChallengeCard from '../components/ChallengeCard';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -30,6 +32,8 @@ const App = () => {
           />
           <Route path='/dashboard' element={<Layout />}/>
           <Route path='/createchallenge' element={<CreateChallenge/>}/>
+          <Route path='/invite' element={<InviteModal/>}/>
+          <Route path='/mine' element={<ChallengeCard/>}/>
         </Routes>
       </Router>
     </AuthProvider>

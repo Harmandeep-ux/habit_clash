@@ -20,8 +20,8 @@ export const getLeaderboards = async(challengeid)=>{
     return data
 }
 
-export const inviteUser = async(challengeid)=>{
-    const {data} = await axiosInstance.post(`/challenge/invite${challengeid}`)
+export const inviteUser = async(challengeid,username)=>{
+    const {data} = await axiosInstance.post(`/challenge/invite/${challengeid}`,{username})
     return data
 }
 
