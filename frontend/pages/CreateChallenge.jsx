@@ -12,18 +12,17 @@ const CreateChallenge = () => {
     setMessage('');
 
     try {
-      // ✅ Use API helper function
       const response = await createChallenge({
         title: data.title,
         description: data.description,
         habitType: data.habitType,
-        durationDays: parseInt(data.durationDays),
+        durationDays: parseInt(data.durationDays ),
       });
 
       setMessage('✅ Challenge Created Successfully!');
       console.log('Created Challenge:', response);
 
-      reset(); // ✅ Clear form after success
+      reset(); 
     } catch (error) {
       console.error('Error creating challenge:', error);
       setMessage(error?.response?.data?.msg || '❌ Failed to create challenge');
