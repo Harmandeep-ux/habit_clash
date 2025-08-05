@@ -81,9 +81,12 @@ const Dashboard = () => {
           <p className="text-orange-200 mb-5">
             See who's leading and find motivation to climb the ranks
           </p>
-          <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
+         <Link to={'/leaderboard/:challengeId'}>
+            <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
             View Rankings
           </button>
+         </Link>
+       
         </motion.div>
 
         {/* Invite Friends */}

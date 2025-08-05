@@ -76,49 +76,48 @@ export const getMyChallenges = async(req,res) =>{
     }
 }
 
-export const getLeaderBoard = async(req,res)=>{
-  try{
-    const challenge = await Challenge.findById(req.params.id).populate("participants.userId","name")
-    if(!challenge){
-      return res.status(404).json({msg:'could not find any challenge'})
+export const getLeaderBoard = async (req, res) => {
+  try {
+    const challenge = await Challenge.findById(req.params.id).populate("participants.userId", "name");
+    if (!challenge) {
+      return res.status(404).json({ msg: 'Could not find any challenge' });
     }
 
     let sortedParticipants = challenge.participants
-    .filter(p => p.userId && p.status==='accepted')
-    .sort((a,b)=>b.totalPoints - a.totalPoints)
+      .filter(p => p.userId && p.status === 'accepted')
+      .sort((a, b) => b.totalPoints - a.totalPoints);
 
-   const leaderboard = sortedParticipants.map((p,index)=>{
-      let badge = "Bronze"
-      if(index == 0) badge = "Platinum"
-      else if (index == 1) badge = "Gold"
-      else if (index == 2) badge = "Silver"
+    const leaderboard = sortedParticipants.map((p, index) => {
+      let badge = "Bronze";
+      if (index === 0) badge = "Platinum";
+      else if (index === 1) badge = "Gold";
+      else if (index === 2) badge = "Silver";
 
-      let nextGoal = "Already At Top"
-      if(index ==1){
-       nextGoal = `${sortedParticipants[0].totalPoints - p.totalPoints} to points reach Platinum`
-      }else if(index == 2){
-        nextGoal = `${sortedParticipants[1].totalPoints - p.totalPoints} to points reach Gold`
-      }else if(index >=3 && sortedParticipants.length > 2){
-        nextGoal = `${sortedParticipants[2].totalPoints - p.totalPoints} to points reach silver`
+      let nextGoal = "Already At Top";
+      if (index === 1) {
+        nextGoal = `${sortedParticipants[0].totalPoints - p.totalPoints} points to reach Platinum`;
+      } else if (index === 2) {
+        nextGoal = `${sortedParticipants[1].totalPoints - p.totalPoints} points to reach Gold`;
+      } else if (index >= 3 && sortedParticipants.length > 2) {
+        nextGoal = `${sortedParticipants[2].totalPoints - p.totalPoints} points to reach Silver`;
       }
-      
-   
-       return{
-         name:p.userId.name,
-         streak:p.streak,
-         totalPoints:p.totalPoints,
-         lateCount:p.lateCount,
-         missedCount:p.missedCount,
-         badge,
-         nextGoal
-       }
-     })
-    
-    res.status(200).json(leaderboard)
-  }catch(err){
-    return res.status(500).json({err:"err while getting leaderboard",msg:err.message})
+
+      return {
+        name: p.userId.name,
+        streak: p.streak,
+        totalPoints: p.totalPoints,
+        lateCount: p.lateCount,
+        missedCount: p.missedCount,
+        badge,
+        nextGoal
+      };
+    });
+
+    res.status(200).json(leaderboard);
+  } catch (err) {
+    return res.status(500).json({ err: "Error while getting leaderboard", msg: err.message });
   }
-}
+};
 
 export const inviteByUsername = async(req,res)=>{
   try{

@@ -16,7 +16,7 @@ export const getMyChallenges = async() =>{
 }
 
 export const getLeaderboards = async(challengeid)=>{
-    const {data} = await axiosInstance.get(`/challenge/leaderboard${challengeid}`)
+    const {data} = await axiosInstance.get(`/challenge/leaderboard/${challengeid}`)
     return data
 }
 

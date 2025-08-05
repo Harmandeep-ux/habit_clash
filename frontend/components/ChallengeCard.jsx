@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiClock, FiUsers, FiAward, FiCalendar, FiPlus, FiArrowRight, FiX } from 'react-icons/fi';
 import { getMyChallenges } from '../api/ChallengeApi';
 import InviteModal from './InviteModal';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ChallengeCard = () => {
   const [challenges, setChallenges] = useState([]);
@@ -10,6 +12,7 @@ const ChallengeCard = () => {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchChallenges = async () => {
@@ -260,9 +263,15 @@ const ChallengeCard = () => {
                         >
                           <FiUsers /> Invite Friends
                         </button>
-                        <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
-                          <FiAward /> View Leaderboard
-                        </button>
+                        
+                      <button 
+  onClick={() => {
+    navigate(`/leaderboard/${selectedChallenge._id}`);
+  }}
+  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+>
+  <FiAward /> View Leaderboard
+</button>
                       </div>
                     </div>
                   </div>
