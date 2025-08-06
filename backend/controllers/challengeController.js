@@ -119,6 +119,14 @@ export const getLeaderBoard = async (req, res) => {
   }
 };
 
+const getAllLeaderboard = async (req,res) =>{
+   try{
+
+   }catch(err){
+    return res.status(500).json({msg:err.message})
+   }
+}
+
 export const inviteByUsername = async(req,res)=>{
   try{
     const {username} = req.body;
