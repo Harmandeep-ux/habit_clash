@@ -45,13 +45,15 @@ const Dashboard = () => {
           whileHover={{ y: -5 }}
         >
           <div className="text-3xl text-orange-400 mb-4">🏆</div>
-          <h3 className="text-2xl font-semibold mb-3 text-yellow-400">Join Challenge</h3>
+      <h3 className="text-2xl font-semibold mb-3 text-yellow-400">Join Challenge</h3>
           <p className="text-orange-200 mb-5">
             Discover and join exciting challenges created by our community
           </p>
-          <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
+             <Link to={`/join/:challengeId`}>
+              <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
             Browse Challenges
           </button>
+             </Link>  
         </motion.div>
 
         {/* My Challenges */}

@@ -10,6 +10,7 @@ import CreateChallenge from '../pages/CreateChallenge';
 import InviteModal from '../components/InviteModal';
 import ChallengeCard from '../components/ChallengeCard';
 import Leaderboard from '../components/Leaderboard';
+import JoinChallenge from '../pages/JoinChallenge';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/invite' element={<InviteModal/>}/>
           <Route path='/mine' element={<ChallengeCard/>}/>
           <Route path='/leaderboard/:challengeId' element={<Leaderboard/>}/>
+          <Route path='/join/:challengeId' element={<JoinChallenge/>}/>
         </Routes>
       </Router>
     </AuthProvider>
