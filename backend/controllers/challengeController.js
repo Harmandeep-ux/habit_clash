@@ -70,6 +70,7 @@ export const joinChallenge = async(req,res) =>{
 export const getMyChallenges = async(req,res) =>{
     try{
     const challenge = await Challenge.find({"participants.userId":req.user.id});
+
     res.status(200).json({challenge})
     }catch(err){
      return res.status(500).json({msg:'error while getting challenge'})
@@ -119,8 +120,52 @@ export const getLeaderBoard = async (req, res) => {
   }
 };
 
-const getAllLeaderboard = async (req,res) =>{
+export const getAllLeaderboard = async (req,res) =>{
    try{
+    
+    const challenges = await Challenge.find().populate("participants.userId", "name")
+
+    const allParticipants = []
+
+    challenges.forEach(challenge =>{
+    const acceptedParticipants =  challenge.participants.filter(p => p.userId && p.status == 'accepted')
+    allParticipants = allParticipants.concat(acceptedParticipants)
+    })
+
+    if(allParticipants.length == 0){
+      return res.status(404).msg({msg:"No participants found"})
+    }
+
+    allParticipants.sort((a,b)=>b.totalPoints - a.totalPoints)
+
+
+    const uniqueLeaders = [];
+    const seenUsers = new Set();
+    for (let p of allParticipants) {
+      if (!seenUsers.has(p.userId._id.toString())) {
+        seenUsers.add(p.userId._id.toString());
+        uniqueLeaders.push(p);
+      }
+    }
+
+    const leaderboard = uniqueLeaders.map((p,i)=>{
+      let badge = "Bronze";
+      if(index ==0) badge = "Platinum";
+      if(index ==1) badge = "Gold";
+      if(index ==2) badge = "Silver";
+
+       return {
+        rank: index + 1,
+        name: p.userId.name,
+        streak: p.streak,
+        totalPoints: p.totalPoints,
+        lateCount: p.lateCount,
+        missedCount: p.missedCount,
+        badge
+      };
+    })
+
+    res.status(200).json(leaderboard)
 
    }catch(err){
     return res.status(500).json({msg:err.message})
