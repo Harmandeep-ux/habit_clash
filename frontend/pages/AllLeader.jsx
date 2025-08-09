@@ -20,18 +20,14 @@ const AllLeader = () => {
         setLoading(false);
       }
     };
-
     fetchLeaders();
   }, []);
 
-  const getRankColor = (rank) => {
-    switch(rank) {
-      case 1: return 'from-yellow-400 to-yellow-600';
-      case 2: return 'from-gray-300 to-gray-400';
-      case 3: return 'from-yellow-700 to-yellow-800';
-      default: return 'from-gray-500 to-gray-700';
-    }
-  };
+  const rankColors = [
+    'from-yellow-300 via-yellow-500 to-yellow-700',
+    'from-gray-300 via-gray-400 to-gray-500',
+    'from-amber-600 via-amber-700 to-amber-800'
+  ];
 
   if (loading) {
     return (
@@ -60,155 +56,133 @@ const AllLeader = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 p-4 md:p-8">
       <div className="max-w-6xl mx-auto">
+        {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-10 text-center"
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center"
         >
-          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-400 mb-2">
-            Global Leaderboard
+          <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-300 animate-pulse">
+            🏆 Global Leaderboard
           </h1>
-          <p className="text-gray-400 text-lg">
-            Top performers across all challenges
+          <p className="text-gray-400 text-lg mt-2">
+            Celebrating the best of the best across all challenges
           </p>
         </motion.div>
 
-        {leaders.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16 bg-gray-800/50 rounded-xl border-2 border-dashed border-gray-700"
-          >
-            <FiAward className="mx-auto text-5xl text-gray-500 mb-4" />
-            <h3 className="text-2xl text-gray-300 mb-2">No leaders yet</h3>
-            <p className="text-gray-500 mb-6">Complete challenges to appear on the leaderboard</p>
-            <button className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-8 rounded-lg hover:shadow-yellow-400/30 transition-all text-lg">
-              <FiTrendingUp /> Join a Challenge
-            </button>
-          </motion.div>
-        ) : (
-          <div className="space-y-4">
-            {/* Top 3 Leaders with special cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {leaders.slice(0, 3).map((leader, index) => (
-                <motion.div
-                  key={leader._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`bg-gradient-to-br ${getRankColor(index + 1)} p-1 rounded-2xl shadow-lg`}
-                >
-                  <div className="bg-gray-900 rounded-xl p-6 h-full">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className={`text-2xl font-bold ${index === 0 ? 'text-yellow-400' : index === 1 ? 'text-gray-300' : 'text-yellow-700'}`}>
-                        #{index + 1}
+        {/* Podium Section */}
+        {leaders.length > 0 && (
+          <div className="flex justify-center gap-6 mb-16 items-end">
+            {leaders.slice(0, 3).map((leader, index) => (
+              <motion.div
+                key={leader._id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ scale: 1.05 }}
+                className={`relative bg-gradient-to-t ${rankColors[index]} p-1 rounded-2xl shadow-xl w-48`}
+                style={{ height: `${200 - index * 30}px` }}
+              >
+                <div className="bg-gray-900 rounded-xl p-5 flex flex-col items-center h-full justify-end relative">
+                  {index === 0 && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.8 }}
+                      transition={{ delay: 0.4, duration: 1 }}
+                      className="absolute -top-8 text-yellow-300 text-5xl"
+                    >
+                      <FiStar />
+                    </motion.div>
+                  )}
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-yellow-300 mb-3">
+                    {leader.avatar ? (
+                      <img
+                        src={leader.avatar}
+                        alt={leader.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-700">
+                        <FiUser className="text-3xl text-gray-300" />
                       </div>
-                      {index === 0 && (
-                        <FiStar className="text-3xl text-yellow-400" />
-                      )}
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div className="w-20 h-20 rounded-full bg-gray-800 mb-4 flex items-center justify-center border-2 border-orange-400/50">
-                        {leader.avatar ? (
-                          <img 
-                            src={leader.avatar} 
-                            alt={leader.name}
-                            className="w-full h-full rounded-full object-cover"
-                          />
-                        ) : (
-                          <FiUser className="text-3xl text-gray-400" />
-                        )}
-                      </div>
-                      <h3 className="text-xl font-bold text-center">{leader.name}</h3>
-                      <p className="text-gray-400 text-sm mb-4">@{leader.username}</p>
-                      <div className="grid grid-cols-2 gap-4 w-full">
-                        <div className="bg-gray-800/50 rounded-lg p-3 text-center">
-                          <p className="text-gray-400 text-sm">Points</p>
-                          <p className="text-yellow-400 font-bold text-xl">{leader.totalPoints}</p>
-                        </div>
-                        <div className="bg-gray-800/50 rounded-lg p-3 text-center">
-                          <p className="text-gray-400 text-sm">Streak</p>
-                          <p className="text-orange-400 font-bold text-xl">{leader.streak}</p>
-                        </div>
-                      </div>
-                    </div>
+                    )}
                   </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Full Leaderboard Table */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="bg-gray-700/50 text-gray-300">
-                      <th className="py-4 px-6 text-left font-medium">Rank</th>
-                      <th className="py-4 px-6 text-left font-medium">Participant</th>
-                      <th className="py-4 px-6 text-center font-medium">
-                        <div className="flex items-center justify-center gap-1">
-                          <FiZap className="text-yellow-400" /> Points
-                        </div>
-                      </th>
-                      <th className="py-4 px-6 text-center font-medium">
-                        <div className="flex items-center justify-center gap-1">
-                          <FiTrendingUp className="text-orange-400" /> Streak
-                        </div>
-                      </th>
-                      <th className="py-4 px-6 text-center font-medium">Challenges</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-700/50">
-                    <AnimatePresence>
-                      {leaders.slice(3).map((leader, index) => (
-                        <motion.tr
-                          key={leader._id}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: (index + 3) * 0.05 }}
-                          className="hover:bg-gray-700/30 transition-colors bg-gray-800/30"
-                        >
-                          <td className="py-4 px-6 font-bold text-gray-400">#{index + 4}</td>
-                          <td className="py-4 px-6">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                                {leader.avatar ? (
-                                  <img
-                                    src={leader.avatar}
-                                    alt={leader.name}
-                                    className="w-full h-full rounded-full object-cover"
-                                  />
-                                ) : (
-                                  <FiUser className="text-gray-400" />
-                                )}
-                              </div>
-                              <div>
-                                <p className="font-medium">{leader.name}</p>
-                                <p className="text-xs text-gray-400">@{leader.username}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="py-4 px-6 text-center font-bold text-yellow-400">
-                            {leader.totalPoints}
-                          </td>
-                          <td className="py-4 px-6 text-center">
-                            <div className="inline-flex items-center gap-1 bg-orange-500/10 px-3 py-1 rounded-full">
-                              <FiTrendingUp className="text-orange-400" />
-                              <span>{leader.streak}</span>
-                            </div>
-                          </td>
-                          <td className="py-4 px-6 text-center text-gray-400">
-                            {leader.completedChallenges || 0}
-                          </td>
-                        </motion.tr>
-                      ))}
-                    </AnimatePresence>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                  <h3 className="text-lg font-bold text-white">{leader.name}</h3>
+                  <p className="text-sm text-gray-400">@{leader.username}</p>
+                  <div className="mt-3 text-yellow-400 font-bold text-lg">{leader.totalPoints} pts</div>
+                  <div className="text-orange-400 text-sm">🔥 {leader.streak} streak</div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         )}
+
+        {/* Table */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 overflow-hidden shadow-lg"
+        >
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-gray-700/50 text-gray-300">
+                  <th className="py-4 px-6 text-left">Rank</th>
+                  <th className="py-4 px-6 text-left">Participant</th>
+                  <th className="py-4 px-6 text-center">Points</th>
+                  <th className="py-4 px-6 text-center">Streak</th>
+                  <th className="py-4 px-6 text-center">Challenges</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-700/50">
+                <AnimatePresence>
+                  {leaders.slice(3).map((leader, index) => (
+                    <motion.tr
+                      key={leader._id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="hover:bg-gray-700/30 transition-colors"
+                    >
+                      <td className="py-4 px-6 font-bold text-gray-400">#{index + 4}</td>
+                      <td className="py-4 px-6">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
+                            {leader.avatar ? (
+                              <img
+                                src={leader.avatar}
+                                alt={leader.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <FiUser className="text-gray-400 w-full h-full p-2" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-medium text-white">{leader.name}</p>
+                            <p className="text-xs text-gray-400">@{leader.username}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-4 px-6 text-center text-yellow-400 font-bold">
+                        {leader.totalPoints}
+                      </td>
+                      <td className="py-4 px-6 text-center text-orange-400">
+                        {leader.streak}
+                      </td>
+                      <td className="py-4 px-6 text-center text-gray-300">
+                        {leader.completedChallenges || 0}
+                      </td>
+                    </motion.tr>
+                  ))}
+                </AnimatePresence>
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
