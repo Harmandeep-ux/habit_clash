@@ -34,3 +34,8 @@ export const rejectInvite = async(challengeid) =>{
     const {data} = axiosInstance.post(`/challenge/reject${challengeid}`)
     return data
 }
+
+export const getAllLeaders = async () =>{
+    const {data} = await axiosInstance.get('challenge/leaderboard')
+    return data
+}

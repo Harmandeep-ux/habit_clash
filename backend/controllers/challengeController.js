@@ -120,27 +120,29 @@ export const getLeaderBoard = async (req, res) => {
   }
 };
 
-export const getAllLeaderboard = async (req,res) =>{
-   try{
-    
-    const challenges = await Challenge.find().populate("participants.userId", "name")
+export const getAllLeaderboard = async (req, res) => {
+  try {
+    const challenges = await Challenge.find()
+      .populate("participants.userId", "name");
 
-    const allParticipants = []
+    let allParticipants = []; // ✅ changed to let
 
-    challenges.forEach(challenge =>{
-    const acceptedParticipants =  challenge.participants.filter(p => p.userId && p.status == 'accepted')
-    allParticipants = allParticipants.concat(acceptedParticipants)
-    })
+    challenges.forEach(challenge => {
+      const acceptedParticipants = challenge.participants.filter(
+        p => p.userId && p.status === 'accepted'
+      );
+      allParticipants.push(...acceptedParticipants); // ✅ push instead of reassign
+    });
 
-    if(allParticipants.length == 0){
-      return res.status(404).msg({msg:"No participants found"})
+    if (allParticipants.length === 0) {
+      return res.status(404).json({ msg: "No participants found" }); // ✅ fixed .json
     }
 
-    allParticipants.sort((a,b)=>b.totalPoints - a.totalPoints)
-
+    allParticipants.sort((a, b) => b.totalPoints - a.totalPoints);
 
     const uniqueLeaders = [];
     const seenUsers = new Set();
+
     for (let p of allParticipants) {
       if (!seenUsers.has(p.userId._id.toString())) {
         seenUsers.add(p.userId._id.toString());
@@ -148,14 +150,14 @@ export const getAllLeaderboard = async (req,res) =>{
       }
     }
 
-    const leaderboard = uniqueLeaders.map((p,i)=>{
+    const leaderboard = uniqueLeaders.map((p, i) => {
       let badge = "Bronze";
-      if(index ==0) badge = "Platinum";
-      if(index ==1) badge = "Gold";
-      if(index ==2) badge = "Silver";
+      if (i === 0) badge = "Platinum";
+      if (i === 1) badge = "Gold";
+      if (i === 2) badge = "Silver";
 
-       return {
-        rank: index + 1,
+      return {
+        rank: i + 1,
         name: p.userId.name,
         streak: p.streak,
         totalPoints: p.totalPoints,
@@ -163,14 +165,15 @@ export const getAllLeaderboard = async (req,res) =>{
         missedCount: p.missedCount,
         badge
       };
-    })
+    });
 
-    res.status(200).json(leaderboard)
+    res.status(200).json(leaderboard);
 
-   }catch(err){
-    return res.status(500).json({msg:err.message})
-   }
-}
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
+
 
 export const inviteByUsername = async(req,res)=>{
   try{
