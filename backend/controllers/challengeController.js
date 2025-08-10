@@ -77,18 +77,28 @@ export const getMyChallenges = async(req,res) =>{
     }
 }
 
-export const getAllChallenges = async(req,res) =>{
-  try{
- const challenges = await Challenge.find().populate("creator", "name").populate("participants.userId", "name")
+export const getAllChallenges = async (req, res) => {
+  try {
+    const challenges = await Challenge.find()
+      .populate("creator", "name")
+      .populate("participants.userId", "name");
 
- if(challenges.length == 0){
-   return res.status(404).json({ msg: "No challenges found" });
- }
-  res.status(200).json(challenges);
-  }catch(err){
-    return res.status(500).json({err:err.message})
+    if (challenges.length === 0) {
+      return res.status(404).json({ msg: "No challenges found" });
+    }
+
+    const userId = req.user?.id; // from authMiddleware
+    const challengesWithJoinStatus = challenges.map(ch => ({
+      ...ch.toObject(),
+      joined: ch.participants.some(p => p.userId.toString() === userId)
+    }));
+
+    res.status(200).json(challengesWithJoinStatus);
+  } catch (err) {
+    return res.status(500).json({ err: err.message });
   }
-}
+};
+
 
 export const getLeaderBoard = async (req, res) => {
   try {
