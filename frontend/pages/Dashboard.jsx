@@ -49,7 +49,7 @@ const Dashboard = () => {
           <p className="text-orange-200 mb-5">
             Discover and join exciting challenges created by our community
           </p>
-             <Link to={`/join/:challengeId`}>
+             <Link to={`/globalchallenge`}>
               <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
             Browse Challenges
           </button>

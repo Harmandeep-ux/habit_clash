@@ -38,7 +38,7 @@ const App = () => {
           <Route path='/invite' element={<InviteModal/>}/>
           <Route path='/mine' element={<ChallengeCard/>}/>
           <Route path='/leaderboard/:challengeId' element={<Leaderboard/>}/>
-          <Route path='/join/:challengeId' element={<JoinChallenge/>}/>
+          <Route path='/globalchallenge' element={<JoinChallenge/>}/>
           <Route path='/globalLeaders' element={<AllLeader/>}/>
         </Routes>
       </Router>

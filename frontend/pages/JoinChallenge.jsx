@@ -1,28 +1,48 @@
-import React, { useState } from 'react'
-import { joinChallenge } from '../api/ChallengeApi'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { getAllChallengesApi, joinChallengeApi } from "../api/ChallengeApi";
 
 const JoinChallenge = () => {
+  const [challenges, setChallenges] = useState([]);
 
-const challengeid = useParams()
-
-const [joinedChallenge, setjoinedChallenge] = useState([])
-
-    const joinChall = async () =>{
-        try{
-        const res= await joinChallenge(challengeid)
-         setjoinedChallenge(res.data)
-        }catch(err){
-            console.log(err)
-        }
+  // Fetch all challenges on page load
+  const fetchChallenges = async () => {
+    try {
+      const data = await getAllChallengesApi();
+      setChallenges(data);
+    } catch (err) {
+      console.error("Error fetching challenges:", err.message);
     }
-if(challengeid){
-    joinChall()
-}
+  };
+
+  // Handle join challenge
+  const handleJoin = async (id) => {
+    try {
+      await joinChallengeApi(id);
+      alert("Joined challenge successfully!");
+      fetchChallenges(); // refresh list after joining
+    } catch (err) {
+      console.error("Error joining challenge:", err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchChallenges();
+  }, []);
 
   return (
-    <div>JoinChallenge</div>
-  )
-}
+    <div>
+      <h1>Available Challenges</h1>
+      {challenges.map((challenge) => (
+        <div key={challenge._id} style={{ border: "1px solid gray", margin: "10px", padding: "10px" }}>
+          <h3>{challenge.title}</h3>
+          <p>{challenge.description}</p>
+          <p>Type: {challenge.habitType}</p>
+          <p>Created by: {challenge.creator.name}</p>
+          <button onClick={() => handleJoin(challenge._id)}>Join</button>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-export default JoinChallenge
+export default JoinChallenge;

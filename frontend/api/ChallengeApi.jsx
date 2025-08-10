@@ -5,11 +5,15 @@ export const createChallenge = async(challengedata)=>{
     return data
 }
 
-export const joinChallenge = async(id)=>{
-    const {data}  = await axiosInstance.post(`/challenge/join/${id}`)
-    return data
-}
 
+export const joinChallengeApi = async (id) => {
+  const { data } = await axiosInstance.post(`/challenge/join/${id}`);
+  return data;
+};
+export const getAllChallengesApi = async () => {
+  const { data } = await axiosInstance.get("/challenge/allchallenge");
+  return data;
+};
 export const getMyChallenges = async() =>{
     const {data} = await axiosInstance.get(`/challenge/mine`)
     return data
