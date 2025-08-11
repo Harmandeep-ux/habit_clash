@@ -36,7 +36,7 @@ if (alreadyCheckedIn) {
     return res.status(400).json({ error: "Already checked in today" });
 }
 
-const lastCheckIn = await checkIn.findOne({user:req.user.id, challenge:challenge._id}).sort({timestamp:-1})
+const lastCheckIn = await CheckIn.findOne({user:req.user.id, challenge:challenge._id}).sort({timestamp:-1})
     if (lastCheckIn) {
       const diffInHours = (now - lastCheckIn.timestamp) / (1000 * 60 * 60);
       if (diffInHours > 24) participant.streak = 0; 
@@ -87,6 +87,11 @@ const lastCheckIn = await checkIn.findOne({user:req.user.id, challenge:challenge
       checkIn
     });
   } catch (err) {
-    return res.status(500).json({ msg: "error while checkin", error: err.message });
+    console.error('Full error during check-in:', err);
+    console.error('Error stack:', err.stack);
+    return res.status(500).json({ 
+      msg: "Error while checking in",
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 };

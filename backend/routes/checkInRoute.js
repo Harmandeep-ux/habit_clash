@@ -5,4 +5,4 @@ import { upload } from '../config/multer.js'
 
 export const checkInRoute = express.Router()
 
-checkInRoute.post('/:challengeid',authMiddleware,upload.single('photo'),checkInToday)
+checkInRoute.post('/:challengeid', authMiddleware, upload.single('photo'), checkInToday);
