@@ -13,6 +13,7 @@ import Leaderboard from '../components/Leaderboard';
 import JoinChallenge from '../pages/JoinChallenge';
 import AllLeader from '../pages/AllLeader';
 import CheckInModal from '../components/CheckInModal';
+import Success from '../pages/Success';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -41,7 +42,8 @@ const App = () => {
           <Route path='/leaderboard/:challengeId' element={<Leaderboard/>}/>
           <Route path='/globalchallenge' element={<JoinChallenge/>}/>
           <Route path='/globalLeaders' element={<AllLeader/>}/>
-          <Route path='/checkin' element={<CheckInModal/>}/>
+          <Route path='/checkin/:challengeId' element={<CheckInModal/>}/>
+          <Route path='/success' element={<Success/>}/>
         </Routes>
       </Router>
     </AuthProvider>

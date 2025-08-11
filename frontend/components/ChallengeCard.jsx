@@ -8,6 +8,7 @@ import {
   FiPlus,
   FiArrowRight,
   FiX,
+  FiCheckCircle
 } from "react-icons/fi";
 import { getMyChallenges } from "../api/ChallengeApi";
 import InviteModal from "./InviteModal";
@@ -168,6 +169,12 @@ const ChallengeCard = () => {
                         </div>
 
                         <div className="flex gap-2">
+                          <Link
+                            to={`/checkin/${ch._id}`}
+                            className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg transition-colors flex items-center gap-1"
+                          >
+                            <FiCheckCircle size={12} /> Check In
+                          </Link>
                           <button
                             onClick={() => {
                               setSelectedChallenge(ch);
@@ -312,6 +319,12 @@ const ChallengeCard = () => {
                         Actions
                       </h4>
                       <div className="flex flex-wrap gap-3">
+                        <Link
+                          to={`/checkin/${selectedChallenge._id}`}
+                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                        >
+                          <FiCheckCircle /> Check In
+                        </Link>
                         <button
                           onClick={() => {
                             setShowDetailModal(false);
@@ -321,7 +334,6 @@ const ChallengeCard = () => {
                         >
                           <FiUsers /> Invite Friends
                         </button>
-
                         <button
                           onClick={() => {
                             navigate(`/leaderboard/${selectedChallenge._id}`);
