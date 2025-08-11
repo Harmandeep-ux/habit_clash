@@ -39,6 +39,22 @@ const Dashboard = () => {
          </Link > 
         </motion.div>
 
+      <motion.div
+          className="bg-gray-800/80 rounded-xl p-6 border border-orange-500/20 hover:border-orange-500/40 transition-all"
+          whileHover={{ y: -5 }}
+        >
+          <div className="text-3xl text-orange-400 mb-4">✅</div>
+          <h3 className="text-2xl font-semibold mb-3 text-yellow-400">Check In</h3>
+          <p className="text-orange-200 mb-5">
+            Mark your daily progress and keep your streak alive
+          </p>
+          <Link to="/checkin">
+            <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-medium py-3 px-6 rounded-lg">
+              Go to Check In
+            </button>
+          </Link>
+        </motion.div>
+
         {/* Join Challenge */}
         <motion.div
           className="bg-gray-800/80 rounded-xl p-6 border border-orange-500/20 hover:border-orange-500/40 transition-all"
