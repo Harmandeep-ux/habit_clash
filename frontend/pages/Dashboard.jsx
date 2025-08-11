@@ -63,28 +63,7 @@ const Dashboard = () => {
             </Link>
           </motion.div>
 
-          {/* Check In */}
-          <motion.div
-            className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-orange-500/30 hover:border-orange-500/50 transition-all shadow-lg hover:shadow-xl hover:shadow-orange-500/10"
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            <div className="flex items-center mb-6">
-              <div className="text-4xl text-orange-400 mr-4">✅</div>
-              <h3 className="text-2xl font-semibold text-yellow-400">Check In</h3>
-            </div>
-            <p className="text-orange-200/80 mb-6 text-lg">
-              Mark your daily progress and keep your streak alive
-            </p>
-            <Link to="/checkin">
-              <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black font-medium py-3.5 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
-                Go to Check In
-              </button>
-            </Link>
-          </motion.div>
+          
 
           {/* Join Challenge */}
           <motion.div
