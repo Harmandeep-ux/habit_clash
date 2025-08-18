@@ -168,32 +168,35 @@ const ChallengeCard = () => {
                           </div>
                         </div>
 
-                        <div className="flex gap-2">
-                          <Link
-                            to={`/checkin/${ch._id}`}
-                            className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg transition-colors flex items-center gap-1"
-                          >
-                            <FiCheckCircle size={12} /> Check In
-                          </Link>
-                          <button
-                            onClick={() => {
-                              setSelectedChallenge(ch);
-                              setShowInviteModal(true);
-                            }}
-                            className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-lg transition-colors"
-                          >
-                            Invite
-                          </button>
-                          <button
-                            onClick={() => {
-                              setSelectedChallenge(ch);
-                              setShowDetailModal(true);
-                            }}
-                            className="text-xs bg-gradient-to-r from-orange-500 to-yellow-500 text-black px-3 py-1 rounded-lg hover:shadow-yellow-400/30 transition-all flex items-center gap-1"
-                          >
-                            View <FiArrowRight size={12} />
-                          </button>
-                        </div>
+                      <div className="flex gap-2">
+  {!isCompleted && (
+    <Link
+      to={`/checkin/${ch._id}`}
+      className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg transition-colors flex items-center gap-1"
+    >
+      <FiCheckCircle size={12} /> Check In
+    </Link>
+  )}
+  <button
+    onClick={() => {
+      setSelectedChallenge(ch);
+      setShowInviteModal(true);
+    }}
+    className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-lg transition-colors"
+  >
+    Invite
+  </button>
+  <button
+    onClick={() => {
+      setSelectedChallenge(ch);
+      setShowDetailModal(true);
+    }}
+    className="text-xs bg-gradient-to-r from-orange-500 to-yellow-500 text-black px-3 py-1 rounded-lg hover:shadow-yellow-400/30 transition-all flex items-center gap-1"
+  >
+    View <FiArrowRight size={12} />
+  </button>
+</div>
+
                       </div>
                     </div>
                   </motion.div>
@@ -319,30 +322,36 @@ const ChallengeCard = () => {
                         Actions
                       </h4>
                       <div className="flex flex-wrap gap-3">
-                        <Link
-                          to={`/checkin/${selectedChallenge._id}`}
-                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                        >
-                          <FiCheckCircle /> Check In
-                        </Link>
-                        <button
-                          onClick={() => {
-                            setShowDetailModal(false);
-                            setShowInviteModal(true);
-                          }}
-                          className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                        >
-                          <FiUsers /> Invite Friends
-                        </button>
-                        <button
-                          onClick={() => {
-                            navigate(`/leaderboard/${selectedChallenge._id}`);
-                          }}
-                          className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-                        >
-                          <FiAward /> View Leaderboard
-                        </button>
-                      </div>
+  {!(
+    calculateProgress(selectedChallenge.startDate, selectedChallenge.endDate) === 100
+  ) && (
+    <Link
+      to={`/checkin/${selectedChallenge._id}`}
+      className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+    >
+      <FiCheckCircle /> Check In
+    </Link>
+  )}
+
+  <button
+    onClick={() => {
+      setShowDetailModal(false);
+      setShowInviteModal(true);
+    }}
+    className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+  >
+    <FiUsers /> Invite Friends
+  </button>
+  <button
+    onClick={() => {
+      navigate(`/leaderboard/${selectedChallenge._id}`);
+    }}
+    className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+  >
+    <FiAward /> View Leaderboard
+  </button>
+</div>
+
                     </div>
                   </div>
                 </div>
