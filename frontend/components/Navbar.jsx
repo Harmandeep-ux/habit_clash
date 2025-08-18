@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../src/context/AuthContext';
+import { Bell } from "lucide-react";
+
 import { motion } from 'framer-motion';
+import axiosInstance from '../api/api';
 
 const Navbar = () => {
+  const [inviteCount, setInviteCount] = useState(0);
+
+  
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  useEffect(() => {
+
+  const fetchInvites = async () => {
+    try {
+      const { data } = await axiosInstance.get("/challenge/my-invites");
+      setInviteCount(data.length);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  if (isAuthenticated) {
+    fetchInvites();
+  }
+}, [isAuthenticated]);
 
   const handleLogout = () => {
     logout();
@@ -55,7 +76,21 @@ const Navbar = () => {
             Leaderboard
           </Link>
         </div>
-
+      
+      {isAuthenticated && (
+  <button
+    onClick={() => navigate("/invites")}
+    className="relative text-orange-200 hover:text-yellow-400 transition-colors"
+  >
+    <Bell size={22} />
+    {inviteCount > 0 && (
+      <span className="absolute -top-2 -right-2 bg-red-500 text-xs text-white font-bold rounded-full h-5 w-5 flex items-center justify-center">
+        {inviteCount}
+      </span>
+    )}
+  </button>
+)}
+   
         {/* Auth Buttons */}
         <div className="flex items-center space-x-4">
           {isAuthenticated ? (
