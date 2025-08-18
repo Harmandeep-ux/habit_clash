@@ -37,3 +37,15 @@ export const rejectInvite = async(req,res)=>{
         return res.status(500).json({err:err.message})
     }
 }
+
+export const pendingInvites = async(req,res)=>{
+    try{
+     const challenge = await Challenge.find({
+        "participants.userId":req.user.id,
+        "participants.status": "pending",
+     })
+     return res.json(challenge)
+    }catch(err){
+        return res.status(500).json({err:err.message})
+    }
+}
