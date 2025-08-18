@@ -1,7 +1,7 @@
 import express from 'express'
 import { createChallenge, getAllChallenges, getAllLeaderboard, getLeaderBoard, getMyChallenges, inviteByUsername, joinChallenge } from '../controllers/challengeController.js'
 import { authMiddleware } from '../middleware/authMiddleware.js'
-import { acceptInvite, rejectInvite } from '../controllers/invitationController.js'
+import { acceptInvite, pendingInvites, rejectInvite } from '../controllers/invitationController.js'
 
 export const challengeRoute = express.Router()
 
@@ -14,3 +14,4 @@ challengeRoute.get('/leaderboard',authMiddleware,getAllLeaderboard )
 challengeRoute.post('/invite/:challengeid',authMiddleware,inviteByUsername)
 challengeRoute.post('/accept/:challengeid',authMiddleware,acceptInvite)
 challengeRoute.post('/reject/:challengeid',authMiddleware,rejectInvite)
+challengeRoute.get('/my-invites',authMiddleware,pendingInvites)
