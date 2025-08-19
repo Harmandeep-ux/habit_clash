@@ -1,5 +1,5 @@
 import express from 'express'
-import { createChallenge, getAllChallenges, getAllLeaderboard, getLeaderBoard, getMyChallenges, inviteByUsername, joinChallenge } from '../controllers/challengeController.js'
+import { createChallenge, getAllChallenges, getAllLeaderboard, getLeaderBoard, getMyChallenges, getMyStreak, inviteByUsername, joinChallenge } from '../controllers/challengeController.js'
 import { authMiddleware } from '../middleware/authMiddleware.js'
 import { acceptInvite, pendingInvites, rejectInvite } from '../controllers/invitationController.js'
 
@@ -15,3 +15,4 @@ challengeRoute.post('/invite/:challengeid',authMiddleware,inviteByUsername)
 challengeRoute.post('/accept/:challengeid',authMiddleware,acceptInvite)
 challengeRoute.post('/reject/:challengeid',authMiddleware,rejectInvite)
 challengeRoute.get('/my-invites',authMiddleware,pendingInvites)
+challengeRoute.get('/my-streak',authMiddleware,getMyStreak)
