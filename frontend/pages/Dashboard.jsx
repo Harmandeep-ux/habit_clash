@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import StreakWidget from '../components/StreakWidget';
 
 const Dashboard = () => {
   return (
@@ -172,13 +173,8 @@ const Dashboard = () => {
             </div>
             <div className="mb-6">
               <p className="text-orange-200/80 mb-1">Current streak:</p>
-              <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500">
-                7 days
-              </div>
+              <StreakWidget />
             </div>
-            <button className="w-full bg-gray-700/80 hover:bg-gray-600/80 text-white font-medium py-3.5 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
-              Streak History
-            </button>
           </motion.div>
 
           {/* Empty Slot for Future Feature */}
