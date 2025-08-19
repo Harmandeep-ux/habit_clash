@@ -234,3 +234,24 @@ export const inviteByUsername = async(req,res)=>{
     return res.status(500).json({err:err.message})
   }
 }
+
+export const getMyStreak = async(req,res) =>{
+  try{
+     const challenges = await Challenge.find({"participants.userId":req.user.id})
+     
+     if(!challenges || challenges.length == 0){
+      return res.json({streak:0})
+     }
+     let totalStreak = 0
+     challenges.find(ch =>{
+      const participant = ch.participants.find(p=>p.userId.toString() === req.user.id)
+      if(participant){
+        totalStreak += participant.streak
+      }
+     })
+      return res.json({ streak: totalStreak });
+     return 
+    }catch(err){
+    return res.status(500).json({err:err.message})
+  }
+}
