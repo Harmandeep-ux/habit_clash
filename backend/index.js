@@ -12,13 +12,15 @@ dbConn()
 
 const app = express()
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
-}))
+    origin: [
+        "http://localhost:5173",              
+        "https://habit-clash-mfis.vercel.app" 
+    ],
+    credentials: true
+}));
 app.use(cookieParser())
 app.use(express.json())
 
-const PORT = process.env.PORT
 
 app.get('/',(req,res)=>{
     res.send('hii')
@@ -29,6 +31,8 @@ app.use('/api/auth',authRoute)
 app.use('/api/challenge',challengeRoute)
 app.use('/api/checkin',checkInRoute)
 
-app.listen(PORT,()=>{
-    console.log(`server running on PORT ${PORT}`)
-})
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`✅ Server running on PORT ${PORT}`);
+});
