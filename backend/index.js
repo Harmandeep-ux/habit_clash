@@ -13,10 +13,11 @@ dbConn()
 const app = express()
 app.use(cors({
     origin: [
-        "http://localhost:5173",              
-        "https://habit-clash-mfis.vercel.app" 
+        "http://localhost:5173",               // local
+        "https://habit-clash-cfpz.vercel.app"  // frontend deployed
     ],
-    credentials: true
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
 }));
 app.use(cookieParser())
 app.use(express.json())
