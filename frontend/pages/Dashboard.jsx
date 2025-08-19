@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import StreakWidget from '../components/StreakWidget.jsx'
+import StreakWidget from '../components/StreakWidget'
 
 const Dashboard = () => {
   return (
