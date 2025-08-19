@@ -250,7 +250,6 @@ export const getMyStreak = async(req,res) =>{
       }
      })
       return res.json({ streak: totalStreak });
-     return 
     }catch(err){
     return res.status(500).json({err:err.message})
   }
