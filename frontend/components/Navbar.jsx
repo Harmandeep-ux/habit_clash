@@ -70,7 +70,7 @@ const Navbar = () => {
           )}
 
           <Link 
-            to="/leaderboard" 
+            to="/globalLeaders" 
             className="text-orange-200 hover:text-yellow-400 transition-colors"
           >
             Leaderboard
