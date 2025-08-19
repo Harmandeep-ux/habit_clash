@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import StreakWidget from '../components/StreakWidget'
+import Streak from '../components/Streak';
 
 const Dashboard = () => {
   return (
@@ -173,7 +173,7 @@ const Dashboard = () => {
             </div>
             <div className="mb-6">
               <p className="text-orange-200/80 mb-1">Current streak:</p>
-              <StreakWidget />
+              <Streak />
             </div>
           </motion.div>
 

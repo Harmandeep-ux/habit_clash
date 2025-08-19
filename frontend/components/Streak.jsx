@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../api/api'
 
-const StreakWidget = () => {
+const Streak = () => {
   const [streak, setstreak] = useState(0)
 
     useEffect(()=>{
@@ -20,4 +20,4 @@ const StreakWidget = () => {
   )
 }
 
-export default StreakWidget
+export default Streak
