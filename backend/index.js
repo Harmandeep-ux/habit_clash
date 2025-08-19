@@ -14,7 +14,7 @@ const app = express()
 app.use(cors({
     origin: [
         "http://localhost:5173",               // local
-        "https://habit-clash-cfpz.vercel.app"  // frontend deployed
+        "https://habit-clash-mfis.vercel.app"  // frontend deployed
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
